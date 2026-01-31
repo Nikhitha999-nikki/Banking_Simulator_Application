@@ -1,0 +1,167 @@
+/* body{
+    font-family: Arial, Helvetica, sans-serif;
+    margin: 20px;
+}
+button{
+    margin: 5px;
+    padding: 8px 12px;
+    cursor: pointer;
+}
+.section{
+    display: none;
+    margin-top: :20px;
+
+}
+input{
+    margin: 5px;
+    padding: 8px;
+} */
+
+/* Google Font */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+
+/* Reset */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Inter', sans-serif;
+}
+
+/* Body */
+body {
+    background: linear-gradient(135deg, #f4f7fb, #e8eef7);
+    color: #333;
+    padding: 40px 20px;
+}
+
+/* Headings */
+h1 {
+    text-align: center;
+    margin-bottom: 10px;
+    color: #1f3c88;
+}
+
+p {
+    text-align: center;
+    margin-bottom: 30px;
+    color: #555;
+}
+
+/* Button Container */
+.button-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 15px; /* SPACE BETWEEN BUTTONS */
+    margin-bottom: 30px;
+}
+
+/* Buttons */
+button {
+    background: #1f3c88;
+    color: white;
+    border: none;
+    padding: 12px 18px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: 500;
+    transition: all 0.3s ease;
+}
+
+button:hover {
+    background: #163172;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 15px rgba(31, 60, 136, 0.3);
+}
+
+/* Sections (Cards) */
+.section {
+    display: none;
+    max-width: 450px;
+    margin: 30px auto;
+    background: #ffffff;
+    padding: 25px;
+    border-radius: 12px;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.08);
+    animation: fadeIn 0.4s ease;
+}
+
+/* Section Headings */
+.section h2 {
+    text-align: center;
+    margin-bottom: 20px;
+    color: #1f3c88;
+}
+
+/* Inputs */
+input {
+    width: 100%;
+    padding: 12px;
+    margin-bottom: 15px;
+    border-radius: 8px;
+    border: 1px solid #ccc;
+    font-size: 14px;
+    transition: border 0.3s ease;
+}
+
+input:focus {
+    outline: none;
+    border-color: #1f3c88;
+}
+
+/* Result Text */
+#create-result,
+#deposit-result,
+#withdraw-result,
+#transfer-result {
+    margin-top: 15px;
+    font-weight: 500;
+    color: #1f3c88;
+    text-align: center;
+}
+
+/* Preformatted Output */
+pre {
+    background: #f4f7fb;
+    padding: 15px;
+    border-radius: 8px;
+    font-size: 13px;
+    overflow-x: auto;
+}
+
+/* Divider */
+hr {
+    border: none;
+    height: 1px;
+    background: #ddd;
+    margin: 30px 0;
+}
+
+/* Animation */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Responsive */
+@media (max-width: 500px) {
+    body {
+        padding: 20px 10px;
+    }
+
+    button {
+        width: 100%;
+    }
+
+    .button-container {
+        flex-direction: column;
+    }
+}

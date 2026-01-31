@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bankin Simulator</title>
+    <link rel="stylesheet" href="style.css">
+    
+</head>
+<body>
+    <h1>Welcome to the Banking Simulator</h1>
+    <p>This is a simple banking simulation application.</p>
+
+    <div class="button-container">
+        <button onclick="showSection('create')">Create Account</button>
+        <button onclick="showSection('deposit')">Deposit Funds</button>
+        <button onclick="showSection('withdraw')">Withdraw Funds</button>
+        <button onclick="showSection('transfer')">Transfer Funds</button>   
+        <button onclick="showSection('view')">View Account Details</button>
+        <button onclick="showSection('viewall')">View All Account</button>
+    </div>
+    <hr>
+
+    <div id="create" class="section">
+        <h2> Create Account</h2>
+        <input id="c-name"placeholder="Enter your name"><br>
+        <input id="c-email" placeholder="Enter your email"><br>
+        <input id="c-balance" placeholder="Enter Openingbalance"><br>
+        <button onclick="createAccount()">Submit</button>
+        <p id="create-result"></p>
+    </div>
+    
+    <div id="deposit" class="section">
+        <h2> Desposit Money</h2>
+        <input id="d-acc" placeholder="Account Number"><br>
+        <input id="d-amount" placeholder="Amount to Deposit"><br>
+        <button onclick="depositMoney()">Submit</button>
+        <p id="deposit-result"></p>
+    </div>
+
+    <div id="withdraw" class="section">
+        <h2>Withdraw Money</h2>
+        <input id="w-acc" placeholder="Account Number"><br>
+        <input id="w-amount" placeholder="Amount to Withdraw"><br>
+        <button onclick="withdrawMoney()">Submit</button>
+        <p id="withdraw-result"></p>
+    </div>
+
+    <div id="transfer" class="section">
+        <h2>Transfer Money</h2>
+        <input id="t-from-acc" placeholder="Sender Account Number"><br>
+        <input id="t-to-acc" placeholder="Receiver Account Number"><br>
+        <input id="t-amount" placeholder="Amount to Transfer"><br>
+        <button onclick="transferMoney()">Submit</button>
+        <p id="transfer-result"></p>
+    </div>
+
+    <div id="view" class="section">
+        <h2>View Account Details</h2>
+        <input id="v-acc" placeholder="Account Number"><br>
+        <button onclick="viewAccount()">Submit</button>
+        <pre id="view-result"></pre>
+    </div>
+
+    <div id="viewall" class="section">
+        <h2>View All Accounts</h2>
+        <button onclick="viewAllAccounts()">Load Accounts</button>
+        <pre id="viewall-result"></pre>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html> 
