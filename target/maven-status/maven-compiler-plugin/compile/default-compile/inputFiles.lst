@@ -13,8 +13,11 @@ C:\Users\Admin\Desktop\Banking-Activity-Simulation-Platform(Update)\src\main\jav
 C:\Users\Admin\Desktop\Banking-Activity-Simulation-Platform(Update)\src\main\java\com\bank\BankSimulator\repository\AccountRepository.java
 C:\Users\Admin\Desktop\Banking-Activity-Simulation-Platform(Update)\src\main\java\com\bank\BankSimulator\repository\DBConnection.java
 C:\Users\Admin\Desktop\Banking-Activity-Simulation-Platform(Update)\src\main\java\com\bank\BankSimulator\repository\TransactionRepository.java
+C:\Users\Admin\Desktop\Banking-Activity-Simulation-Platform(Update)\src\main\java\com\bank\BankSimulator\repository\UserRepository.java
 C:\Users\Admin\Desktop\Banking-Activity-Simulation-Platform(Update)\src\main\java\com\bank\BankSimulator\service\AccountService.java
 C:\Users\Admin\Desktop\Banking-Activity-Simulation-Platform(Update)\src\main\java\com\bank\BankSimulator\service\AlertService.java
+C:\Users\Admin\Desktop\Banking-Activity-Simulation-Platform(Update)\src\main\java\com\bank\BankSimulator\service\EmailService.java
+C:\Users\Admin\Desktop\Banking-Activity-Simulation-Platform(Update)\src\main\java\com\bank\BankSimulator\service\OTPService.java
 C:\Users\Admin\Desktop\Banking-Activity-Simulation-Platform(Update)\src\main\java\com\bank\BankSimulator\service\TransactionService.java
 C:\Users\Admin\Desktop\Banking-Activity-Simulation-Platform(Update)\src\main\java\com\bank\BankSimulator\TransactionTest.java
 C:\Users\Admin\Desktop\Banking-Activity-Simulation-Platform(Update)\src\main\java\com\bank\BankSimulator\util\AuthFilter.java

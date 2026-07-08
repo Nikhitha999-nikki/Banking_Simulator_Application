@@ -1,11 +1,12 @@
 package com.bank.BankSimulator;
-import static spark.Spark.*;
-
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 
+import com.bank.BankSimulator.ApiServer.AccountRequest;
+import com.bank.BankSimulator.ApiServer.TransferRequest;
+import com.bank.BankSimulator.ApiServer.TxRequest;
 import com.bank.BankSimulator.auth.AuthController;
 import com.bank.BankSimulator.exception.AccountNotFoundException;
 import com.bank.BankSimulator.exception.InsufficientBalanceException;
@@ -17,6 +18,12 @@ import com.bank.BankSimulator.service.AlertService;
 import com.bank.BankSimulator.service.TransactionService;
 import com.bank.BankSimulator.util.AuthFilter;
 import com.google.gson.Gson;
+
+import static spark.Spark.exception;
+import static spark.Spark.get;
+import static spark.Spark.port;
+import static spark.Spark.post;
+import static spark.Spark.staticFiles;
 
 public class ApiServer {
 	
@@ -39,6 +46,7 @@ public class ApiServer {
 	           
 
 		AuthController.routes();
+
 		AuthFilter.apply();
 
         // Global exception handler to always return JSON
@@ -60,8 +68,22 @@ public class ApiServer {
 		
         System.out.println("Spark server started on port 8085");
 
-        // ---------------- ROUTES ----------------
+		post("/forgot-password", (req, res) -> {
 
+    		res.type("application/json");
+
+            
+            ApiServer.EmailRequest emailReq = gson.fromJson(req.body(), ApiServer.EmailRequest.class);
+
+            System.out.println("Email : " + emailReq.email);
+
+    return gson.toJson(
+        Collections.singletonMap("message", "Email received successfully")
+    );
+});
+
+        // ---------------- ROUTES ----------------
+		
         post("/accounts/create",(req, res) -> {
 			System.out.println("/accounts/create api is called");
 			res.type("application/json");
@@ -72,6 +94,9 @@ public class ApiServer {
 			
 		});
 		
+		
+
+
         post("/accounts/deposit", (req, res) -> {
         	System.out.println("/accounts/deposit api is called");
             res.type("application/json");
@@ -186,11 +211,28 @@ public class ApiServer {
     	    }
        });
        
-      
+//       post("/forgot-password", (req, res) -> {
+
+//     res.type("application/json");
+
+    
+
+//     EmailRequest data = gson.fromJson(req.body(), EmailRequest.class);
+
+//     System.out.println("Email Received : " + data.email);
+
+//     return gson.toJson(
+//         Collections.singletonMap(
+//             "message",
+//             "Email Received Successfully"
+//         )
+//     );
+
+// });
 
        
 	}
-
+	
  
 
     // ---------------- Request DTOs ----------------
@@ -210,6 +252,8 @@ public class ApiServer {
 		String toAcc;
 		BigDecimal amount;
 	}
-  
+	static class EmailRequest{
+		String email;
+	}
 		 
 }
