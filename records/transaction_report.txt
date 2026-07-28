@@ -53,3 +53,6 @@ TRANSFER | FromAcc: 1000000 | ToAccount: 1000001 | Amount 5000
 WITHDRAW | Acc: 1000000 | Amount: 1000
 TRANSFER | FromAcc: 1000000 | ToAccount: 1000001 | Amount 5000
 DEPOSITE | Acc: 1000000 | Amount: 200
+DEPOSITE | Acc: 1000000 | Amount: 200
+DEPOSITE | Acc: 1000000 | Amount: 200
+WITHDRAW | Acc: 1000000 | Amount: 100

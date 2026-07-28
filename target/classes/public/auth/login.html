@@ -3,24 +3,48 @@
 <head>
 	 <title>Login</title>
 	<link rel="stylesheet" href="auth.css">
-	
+	<script src="https://accounts.google.com/gsi/client" async defer></script>
    
 </head>
 <body>
   <div class="auth-container">
     <h2>Login</h2>
 
-    <input type="text" id="username" placeholder="Username"><br><br>
+    <input type="text" id="username" placeholder="Enter Username or Email"><br><br>
     <input type="password" id="password" placeholder="Password"><br><br>
     <a href="forgot-password.html">Forgot Password?</a><br><br>
-
     <button onclick="login()">Login</button>
 
-    <p id="msg" style="color:red;"></p>
+    <hr>
+    <div class="divider">
+        <span>OR</span>
+    </div>
 
+    <div id="g_id_onload"
+        data-client_id="900365502731-riridlak01e1meaei8r04gems3n92ede.apps.googleusercontent.com"
+        data-callback="handleCredentialResponse">
+    </div>
+
+    <div class="g_id_signin"
+        data-type="standard"
+        data-size="large"
+        data-theme="outline"
+        data-text="continue_with"
+        data-shape="rectangular">
+    </div>
+
+    
+
+    <!-- <button class="google-btn" onclick="googleLogin()">
+        <img src="https://developers.google.com/identity/images/g-logo.png"
+            width="20">
+          Continue with Google
+    </button> -->
+    <p id="msg" style="color:red;"></p>
     <p class="link">
       New user? <a href="register.html">Register here</a>
     </p>
+    <center><h5>Skip & continue to <a href="/">Home</a></h5></center>
   </div>
 
   <script src="auth.js"></script>
