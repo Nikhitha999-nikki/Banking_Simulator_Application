@@ -23,11 +23,9 @@ public class UserRepository {
     ) {
 
         String hashedPassword = BCrypt.hashpw(password, BCrypt.gensalt());
-
         ps.setString(1, username);
         ps.setString(2, email);
         ps.setString(3, hashedPassword);
-
         return ps.executeUpdate() > 0;
 
     } catch (Exception e) {

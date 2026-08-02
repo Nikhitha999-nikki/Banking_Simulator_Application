@@ -29,7 +29,11 @@ public class AuthController {
                 this.success = success;
                 this.message = message;
             }
-        }
+    }
+    private static class GoogleLoginRequest {
+        String credential;   
+    }
+
 	public static void routes() {
 
     post("/register", (req, res) -> {
@@ -139,6 +143,21 @@ public class AuthController {
             return gson.toJson(new Response(false, "Password reset failed"));
         }
         return gson.toJson(new Response(true, "Password reset successful"));
+    });
+    post("/google-login", (req, res) -> {
+
+        res.type("application/json");
+
+        GoogleLoginRequest data =
+                gson.fromJson(req.body(), GoogleLoginRequest.class);
+
+        System.out.println("Google Credential:");
+        System.out.println(data.credential);
+
+        return gson.toJson(
+            new Response(true, "Google Login Received")
+        );
+
     });
     }
 
