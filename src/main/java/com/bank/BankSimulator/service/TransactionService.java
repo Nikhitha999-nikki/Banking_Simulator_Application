@@ -80,5 +80,10 @@ public class TransactionService {
 		alertService.checkBalance(sender);
 		alertService.checkBalance(recevier);
 	}
+	public java.util.List<java.util.Map<String, Object>> getTransactions(String accNo)
+        throws AccountNotFoundException {
+		accountService.getAccount(accNo);
+		return transactionRepository.getTransactionsByAccount(accNo);
+	}
 
 }

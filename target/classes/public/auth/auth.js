@@ -7,7 +7,10 @@ function login() {
         headers: {
             "Content-Type": "application/x-www-form-urlencoded"
         },
-        body: `username=${username}&password=${password}`
+        body: new URLSearchParams({
+    username: username,
+    password: password
+})
         })
         .then(response => {
             if (!response.ok) {

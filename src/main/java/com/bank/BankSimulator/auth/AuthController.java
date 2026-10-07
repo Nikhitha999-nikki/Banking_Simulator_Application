@@ -4,6 +4,11 @@ import com.bank.BankSimulator.service.EmailService;
 import com.bank.BankSimulator.service.OTPService;
 import com.bank.BankSimulator.service.OTPStorage;
 import com.google.gson.Gson;
+import com.google.api.client.googleapis.auth.oauth2.GoogleIdToken;
+import com.google.api.client.googleapis.auth.oauth2.GoogleIdTokenVerifier;
+import com.google.api.client.http.javanet.NetHttpTransport;
+import com.google.api.client.json.jackson2.JacksonFactory;
+import java.util.Collections;
 
 import static spark.Spark.post;
 public class AuthController {
@@ -24,10 +29,16 @@ public class AuthController {
 
             boolean success;
             String message;
+            String token;
 
             Response(boolean success, String message) {
                 this.success = success;
                 this.message = message;
+            }
+            Response(boolean success, String message, String token) {
+                this.success = success;
+                this.message = message;
+                this.token = token;
             }
     }
     private static class GoogleLoginRequest {
@@ -145,20 +156,63 @@ public class AuthController {
         return gson.toJson(new Response(true, "Password reset successful"));
     });
     post("/google-login", (req, res) -> {
+    res.type("application/json");
 
-        res.type("application/json");
+    GoogleLoginRequest data =
+            gson.fromJson(req.body(), GoogleLoginRequest.class);
 
-        GoogleLoginRequest data =
-                gson.fromJson(req.body(), GoogleLoginRequest.class);
+    if (data == null || data.credential == null || data.credential.isEmpty()) {
+        res.status(400);
+        return gson.toJson(
+            new Response(false, "Google credential missing")
+        );
+    }
 
-        System.out.println("Google Credential:");
-        System.out.println(data.credential);
+    try {
+        GoogleIdTokenVerifier verifier =
+            new GoogleIdTokenVerifier.Builder(
+                new NetHttpTransport(),
+                JacksonFactory.getDefaultInstance()
+            )
+            .setAudience(Collections.singletonList(
+                "900365502731-tni37r2o54sbm8r26trvv6usd1mlknub.apps.googleusercontent.com"
+            ))
+            .build();
+
+        GoogleIdToken idToken = verifier.verify(data.credential);
+
+        if (idToken == null) {
+            res.status(401);
+            return gson.toJson(
+                new Response(false, "Invalid Google credential")
+            );
+        }
+
+        GoogleIdToken.Payload payload = idToken.getPayload();
+
+        String email = payload.getEmail();
+        String name = (String) payload.get("name");
+
+        System.out.println("Google Login Verified");
+        System.out.println("Name  : " + name);
+        System.out.println("Email : " + email);
+
+        String token = AuthService.createToken();
 
         return gson.toJson(
-            new Response(true, "Google Login Received")
+            new Response(true, "Google Login Successful", token)
         );
 
-    });
+    } catch (Exception e) {
+        e.printStackTrace();
+        res.status(401);
+        return gson.toJson(
+            new Response(false, "Google authentication failed")
+        );
+    }
+});
+
+        
     }
 
 }

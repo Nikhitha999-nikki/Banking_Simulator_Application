@@ -9,11 +9,14 @@ public class AuthService {
 
     public static String login(String username, String password) {
         if (UserRepository.validate(username, password)) {
-            String token = UUID.randomUUID().toString();
-            activeTokens.add(token);
-            return token;
+            return createToken();
         }
         return null;
+    }
+    public static String createToken() {
+        String token = UUID.randomUUID().toString();
+        activeTokens.add(token);
+        return token;
     }
 
     public static boolean isAuthorized(String token) {

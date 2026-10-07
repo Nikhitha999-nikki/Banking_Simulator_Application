@@ -313,7 +313,7 @@ input:focus {
 #create-result,
 #deposit-result,
 #withdraw-result,
-#transfer-result25px;
+#transfer-result25px{
     width: 100%;
     border-radius: 16px;
     overflow: hidden;
@@ -684,3 +684,8 @@ hr {
     }
 }
 
+.transaction-actions {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+}

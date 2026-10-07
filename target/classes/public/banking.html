@@ -21,12 +21,14 @@
         <div class="bank-logo">🏦</div>
         <div class="navbar-brand">Banking Simulator</div>
     </div>
+
     <div class="navbar-right">
         <button class="nav-btn btn-logout" onclick="handleLogout()">Logout</button>
     </div>
 </nav>
 
 <main class="dashboard-content">
+
     <!-- Welcome Section -->
     <div class="welcome-header">
         <h1>Welcome to the Banking Simulator</h1>
@@ -35,90 +37,154 @@
 
     <!-- Action Buttons Grid -->
     <div class="action-grid">
+
         <button class="action-btn" onclick="showSection('create')">
             <span class="btn-icon">➕</span>
             <span class="btn-text">Create Account</span>
         </button>
+
         <button class="action-btn" onclick="showSection('deposit')">
             <span class="btn-icon">💰</span>
             <span class="btn-text">Deposit Funds</span>
         </button>
+
         <button class="action-btn" onclick="showSection('withdraw')">
             <span class="btn-icon">💸</span>
             <span class="btn-text">Withdraw Funds</span>
         </button>
+
         <button class="action-btn" onclick="showSection('transfer')">
             <span class="btn-icon">🔄</span>
             <span class="btn-text">Transfer Funds</span>
         </button>
+
         <button class="action-btn" onclick="showSection('view')">
             <span class="btn-icon">👁️</span>
-            <span class="btn-text">View Account Details</span>
+            <span class="btn-text">Account Balance</span>
         </button>
+
         <button class="action-btn" onclick="showSection('viewall')">
             <span class="btn-icon">📊</span>
             <span class="btn-text">View All Accounts</span>
         </button>
+
+        <!-- NEW: Transaction History -->
+        <button class="action-btn" onclick="showSection('transactions')">
+            <span class="btn-icon">📜</span>
+            <span class="btn-text">Transaction History</span>
+        </button>
+
     </div>
 
     <hr>
 
-<div id="create" class="section">
-    <h2>Create Account</h2>
-    <input id="c-name" placeholder="Enter your name"><br>
-    <input id="c-email" placeholder="Enter your email"><br>
-    <input id="c-balance" placeholder="Enter Opening Balance"><br>
-    <button onclick="createAccount()">Submit</button>
-    <p id="create-result"></p>
-</div>
+    <!-- CREATE ACCOUNT -->
+    <div id="create" class="section">
+        <h2>Create Account</h2>
 
-<div id="deposit" class="section">
-    <h2>Deposit Money</h2>
-    <input id="d-acc" placeholder="Account Number"><br>
-    <input id="d-amount" placeholder="Amount to Deposit"><br>
-    <button onclick="depositMoney()">Submit</button>
-    <p id="deposit-result"></p>
-</div>
+        <input id="c-name" placeholder="Enter your name"><br>
+        <input id="c-email" placeholder="Enter your email"><br>
+        <input id="c-balance" placeholder="Enter Opening Balance"><br>
 
-<div id="withdraw" class="section">
-    <h2>Withdraw Money</h2>
-    <input id="w-acc" placeholder="Account Number"><br>
-    <input id="w-amount" placeholder="Amount to Withdraw"><br>
-    <button onclick="withdrawMoney()">Submit</button>
-    <p id="withdraw-result"></p>
-</div>
+        <button onclick="createAccount()">Submit</button>
 
-<div id="transfer" class="section">
-    <h2>Transfer Money</h2>
-    <input id="t-from-acc" placeholder="Sender Account Number"><br>
-    <input id="t-to-acc" placeholder="Receiver Account Number"><br>
-    <input id="t-amount" placeholder="Amount to Transfer"><br>
-    <button onclick="transferMoney()">Submit</button>
-    <p id="transfer-result"></p>
-</div>
-
-<div id="view" class="section">
-    <h2>View Account Details</h2>
-    <input id="v-acc" placeholder="Account Number"><br>
-    <button onclick="viewAccount()">Submit</button>
-    <div id="view-result" class="account-details-container"></div>
-</div>
-
-<div id="viewall" class="section">
-    <h2>View All Accounts</h2>
-    <button onclick="viewAllAccounts()">Load Accounts</button>
-    <div id="viewall-result" class="table-container">
-        <div class="table-placeholder">Click 'Load Accounts' to view all account details.</div>
+        <p id="create-result"></p>
     </div>
-</div>
+
+    <!-- DEPOSIT -->
+    <div id="deposit" class="section">
+        <h2>Deposit Money</h2>
+
+        <input id="d-acc" placeholder="Account Number"><br>
+        <input id="d-amount" placeholder="Amount to Deposit"><br>
+
+        <button onclick="depositMoney()">Submit</button>
+
+        <p id="deposit-result"></p>
+    </div>
+
+    <!-- WITHDRAW -->
+    <div id="withdraw" class="section">
+        <h2>Withdraw Money</h2>
+
+        <input id="w-acc" placeholder="Account Number"><br>
+        <input id="w-amount" placeholder="Amount to Withdraw"><br>
+
+        <button onclick="withdrawMoney()">Submit</button>
+
+        <p id="withdraw-result"></p>
+    </div>
+
+    <!-- TRANSFER -->
+    <div id="transfer" class="section">
+        <h2>Transfer Money</h2>
+
+        <input id="t-from-acc" placeholder="Sender Account Number"><br>
+        <input id="t-to-acc" placeholder="Receiver Account Number"><br>
+        <input id="t-amount" placeholder="Amount to Transfer"><br>
+
+        <button onclick="transferMoney()">Submit</button>
+
+        <p id="transfer-result"></p>
+    </div>
+
+    <!-- VIEW ACCOUNT -->
+    <div id="view" class="section">
+        <h2>Account Balance</h2>
+
+        <input id="v-acc" placeholder="Account Number"><br>
+
+        <button onclick="viewAccount()">Submit</button>
+
+        <div id="view-result" class="account-details-container"></div>
+    </div>
+
+    <!-- VIEW ALL ACCOUNTS -->
+    <div id="viewall" class="section">
+        <h2>View All Accounts</h2>
+
+        <button onclick="viewAllAccounts()">Load Accounts</button>
+
+        <div id="viewall-result" class="table-container">
+            <div class="table-placeholder">
+                Click 'Load Accounts' to view all account details.
+            </div>
+        </div>
+    </div>
+
+    <!-- TRANSACTION HISTORY -->
+    <div id="transactions" class="section">
+        <h2>Transaction History</h2>
+
+        <input id="tx-acc" placeholder="🔍 Account Number"><br>
+
+        <div class="transaction-actions">
+            <button onclick="viewTransactions()">
+                View Transaction History
+            </button>
+
+            <button onclick="downloadTransactionPDF()">
+                Download PDF
+            </button>
+        </div>
+
+        <div id="transactions-result" class="table-container">
+            <div class="table-placeholder">
+                Enter an account number to view transaction history.
+            </div>
+        </div>
+    </div>
 
     <script src="script.js"></script>
+
     <script>
         function handleLogout() {
             localStorage.removeItem("authToken");
             window.location.href = "/index.html";
         }
     </script>
+
 </main>
+
 </body>
 </html>

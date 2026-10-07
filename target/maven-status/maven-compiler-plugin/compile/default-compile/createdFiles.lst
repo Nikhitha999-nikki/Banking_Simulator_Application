@@ -1,4 +1,6 @@
 com\bank\BankSimulator\util\EmailUtil.class
+com\bank\BankSimulator\util\PdfReportUtil$StatementPageEvent.class
+com\bank\BankSimulator\util\PdfReportUtil.class
 com\bank\BankSimulator\ApiServer$AccountRequest.class
 com\bank\BankSimulator\service\AccountService.class
 com\bank\BankSimulator\util\EmailUtil$1.class
@@ -8,6 +10,7 @@ com\bank\BankSimulator\auth\AuthController$ResetPasswordRequest.class
 com\bank\BankSimulator\auth\AuthController.class
 com\bank\BankSimulator\exception\AccountNotFoundException.class
 com\bank\BankSimulator\exception\InvalidAmountException.class
+com\bank\BankSimulator\auth\AuthController$GoogleLoginRequest.class
 com\bank\BankSimulator\util\AuthFilter.class
 com\bank\BankSimulator\service\TransactionService.class
 com\bank\BankSimulator\auth\AuthController$OTPRequest.class

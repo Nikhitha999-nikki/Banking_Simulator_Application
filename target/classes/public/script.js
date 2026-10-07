@@ -251,3 +251,151 @@ function viewAllAccounts() {
     })
     .catch(err => console.error(err));
 }
+/* ---------------- VIEW TRANSACTION HISTORY ---------------- */
+function viewTransactions() {
+
+    const accNo = document.getElementById("tx-acc").value.trim();
+    const resultDiv = document.getElementById("transactions-result");
+
+    if (!accNo) {
+        resultDiv.innerHTML =
+            '<div class="table-placeholder">Please enter an account number.</div>';
+        return;
+    }
+
+    resultDiv.innerHTML =
+        '<div class="table-placeholder">Loading transactions...</div>';
+
+    fetch(BASE_URL + "/accounts/" + accNo + "/transactions", {
+        method: "GET",
+        headers: {
+            "Authorization": getToken()
+        }
+    })
+    .then(handleUnauthorized)
+    .then(async response => {
+
+        const data = await response.json();
+
+        if (!response.ok) {
+            throw new Error(data.error || "Failed to fetch transactions");
+        }
+
+        return data;
+    })
+    .then(transactions => {
+
+        if (!transactions || transactions.length === 0) {
+            resultDiv.innerHTML =
+                '<div class="table-placeholder">No transactions found for this account.</div>';
+            return;
+        }
+
+        let output = `
+            <table class="accounts-table">
+                <thead>
+                    <tr>
+                        <th>Date & Time</th>
+                        <th>Type</th>
+                        <th>Amount</th>
+                        <th>Target Account</th>
+                    </tr>
+                </thead>
+                <tbody>
+        `;
+
+        transactions.forEach((transaction, index) => {
+
+            const date = transaction.timestamp
+                ? new Date(transaction.timestamp).toLocaleString()
+                : "-";
+
+            const amount = Number(transaction.amount).toLocaleString(
+                "en-IN",
+                {
+                    minimumFractionDigits: 2,
+                    maximumFractionDigits: 2
+                }
+            );
+
+            output += `
+                <tr class="${index % 2 === 0 ? 'even' : 'odd'}">
+                    <td data-label="Date & Time">${date}</td>
+                    <td data-label="Type"><strong>${transaction.type}</strong></td>
+                    <td data-label="Amount"><strong>₹${amount}</strong></td>
+                    <td data-label="Target Account">
+                        ${transaction.targetAccount || "-"}
+                    </td>
+                </tr>
+            `;
+        });
+
+        output += `
+                </tbody>
+            </table>
+        `;
+
+        resultDiv.innerHTML = output;
+
+        // Clear account number after successful search
+        document.getElementById("tx-acc").value = "";
+    })
+    .catch(err => {
+
+        resultDiv.innerHTML =
+            `<div class="table-placeholder" style="color: #ff4757;">
+                ❌ ${err.message}
+            </div>`;
+    });
+}
+function downloadTransactionPDF() {
+
+    const accNo = document.getElementById("tx-acc").value.trim();
+
+    if (!accNo) {
+        alert("Please enter an account number.");
+        return;
+    }
+
+    fetch(BASE_URL + "/accounts/" + accNo + "/transactions/pdf", {
+        method: "GET",
+        headers: {
+            "Authorization": getToken()
+        }
+    })
+    .then(handleUnauthorized)
+    .then(async response => {
+
+        if (!response.ok) {
+            let errorMessage = "Failed to download transaction PDF.";
+
+            try {
+                const data = await response.json();
+                errorMessage = data.error || errorMessage;
+            } catch (e) {
+                // Ignore JSON parsing error
+            }
+
+            throw new Error(errorMessage);
+        }
+
+        return response.blob();
+    })
+    .then(blob => {
+
+        const url = window.URL.createObjectURL(blob);
+
+        const link = document.createElement("a");
+        link.href = url;
+        link.download = "Transaction_Statement_" + accNo + ".pdf";
+
+        document.body.appendChild(link);
+        link.click();
+
+        link.remove();
+        window.URL.revokeObjectURL(url);
+    })
+    .catch(err => {
+        alert("❌ " + err.message);
+    });
+}

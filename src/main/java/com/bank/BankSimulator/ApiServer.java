@@ -3,7 +3,7 @@ import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
-
+import com.bank.BankSimulator.util.PdfReportUtil;
 import com.bank.BankSimulator.ApiServer.AccountRequest;
 import com.bank.BankSimulator.ApiServer.TransferRequest;
 import com.bank.BankSimulator.ApiServer.TxRequest;
@@ -210,6 +210,63 @@ public class ApiServer {
     	        return gson.toJson(Collections.singletonMap("error", e.getMessage()));
     	    }
        });
+       get("/accounts/:accNo/transactions", (req, res) -> {
+
+            System.out.println("/accounts/:accNo/transactions api is called");
+
+            res.type("application/json");
+
+            String accNo = req.params(":accNo");
+
+            try {
+
+                return gson.toJson(
+                    trxService.getTransactions(accNo)
+                );
+
+            } catch (AccountNotFoundException e) {
+
+                res.status(404);
+
+                return gson.toJson(
+                    Collections.singletonMap("error", "Account not found")
+                );
+
+            } catch (Exception e) {
+
+                res.status(500);
+
+                return gson.toJson(
+                    Collections.singletonMap("error", e.getMessage())
+                );
+            }
+        });
+       
+       get("/accounts/:accNo/transactions/pdf", (req, res) -> {
+           System.out.println("/accounts/:accNo/transactions/pdf api is called");
+           res.type("application/pdf");
+           
+           String accNo = req.params(":accNo");
+           
+           try {
+               byte[] pdfBytes =
+        PdfReportUtil.generateTransactionStatement(
+                accNo,
+                trxService.getTransactions(accNo)
+        );
+               res.header("Content-Disposition", "attachment; filename=transaction_report.pdf");
+               return pdfBytes;
+           } catch (AccountNotFoundException e) {
+               res.status(404);
+               return gson.toJson(Collections.singletonMap("error", "Account not found"));
+           } catch (Exception e) {
+               res.status(500);
+               return gson.toJson(Collections.singletonMap("error", e.getMessage()));
+           }
+       });
+
+
+
        
 //       post("/forgot-password", (req, res) -> {
 
@@ -233,8 +290,6 @@ public class ApiServer {
        
 	}
 	
- 
-
     // ---------------- Request DTOs ----------------
     static class AccountRequest {
         String name;
